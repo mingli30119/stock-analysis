@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>中国长城 000066 · 深度研报</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--bg:#0c0f15;--card-bg:#1a1c24;--card-bg-alt:#1e2029;--border:#2a2d3a;--text-primary:#e8e9ec;--text-secondary:#b0b3be;--text-muted:#7a7d8a;--red-up:#f55656;--green-down:#28c75b;--gold:#d4a853;--gold-light:#e3c26d;--blue-accent:#4a90d9;--orange-warn:#e8923a;--shadow:0 4px 20px rgba(0,0,0,0.3);--radius:10px;--font-sans:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;--font-mono:"JetBrains Mono","SF Mono","Consolas",monospace;--transition:0.2s ease;}
+body.light-mode{--bg:#fdf8f0;--card-bg:#fffbf5;--card-bg-alt:#fef5e7;--border:#e2cfa2;--text-primary:#2a1f12;--text-secondary:#6b5634;--text-muted:#9c8b6e;--red-up:#dc2626;--green-down:#16a34a;--gold:#b38a3c;--gold-light:#d4a853;--blue-accent:#2563eb;--orange-warn:#c2410c;--shadow:0 4px 20px rgba(162,125,57,0.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);line-height:1.7;font-size:14px;background-image:radial-gradient(circle at 15% 10%,rgba(212,168,83,0.03) 0%,transparent 35%),radial-gradient(circle at 85% 70%,rgba(212,168,83,0.03) 0%,transparent 35%);background-attachment:fixed}
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(10,12,18,0.92);backdrop-filter:blur(12px);border-bottom:2px solid var(--gold-light);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.top-nav .logo{display:flex;align-items:center;gap:10px;color:#fff}
+.top-nav .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#c0392b,#8b0000);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff}
+.top-nav .stock-name{font-weight:700;font-size:17px;letter-spacing:0.5px}
+.top-nav .stock-code{font-size:12px;opacity:0.7;font-family:var(--font-mono)}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.nav-links a{font-size:12px;padding:5px 14px;border-radius:16px;color:var(--gold-light);text-decoration:none;border:1px solid transparent;transition:var(--transition);font-weight:500;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,0.08);color:#fff;border-color:var(--gold)}
+.theme-toggle{background:rgba(255,255,255,0.08);border:1px solid var(--gold-light);color:var(--gold-light);padding:5px 14px;border-radius:16px;font-size:12px;cursor:pointer;transition:var(--transition);margin-left:12px}
+.theme-toggle:hover{background:rgba(255,255,255,0.15)}
+.container{max-width:1300px;margin:0 auto;padding:24px 20px 40px}
+.hero{background:linear-gradient(105deg,#1c1010 0%,#2c1a1a 50%,#3d2424 100%);border-radius:var(--radius);padding:28px 32px;margin-bottom:24px;border:1px solid var(--gold-light);box-shadow:0 8px 28px rgba(100,55,55,0.2);display:flex;flex-wrap:wrap;gap:24px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-price-block{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;z-index:1}
+.hero-price{font-size:56px;font-weight:900;line-height:1;font-family:var(--font-mono)}
+.hero-change{font-size:20px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(245,86,86,0.2);color:#f87171;font-family:var(--font-mono)}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;z-index:1}
+.hero-meta-item{text-align:center}
+.hero-meta-item .val{font-size:22px;font-weight:700;font-family:var(--font-mono);color:var(--gold-light)}
+.hero-meta-item .label{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:1px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;z-index:1}
+.hero-tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold-light);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500}
+.conclusion-top{background:linear-gradient(135deg,#1e1a10 0%,#241f14 100%);border:2px solid var(--gold);border-radius:var(--radius);padding:22px 28px;margin-bottom:24px;position:relative}
+.conclusion-top::before{content:'核心结论';position:absolute;top:-13px;left:24px;background:var(--gold);color:#000;padding:3px 16px;border-radius:12px;font-weight:700;font-size:12px;letter-spacing:1px}
+.conclusion-top .big-verdict{font-weight:800;font-size:20px;color:#fff;margin-top:8px}
+.conclusion-top .verdict-detail{font-size:14px;color:var(--text-secondary);margin-top:8px;line-height:1.7}
+.conclusion-top .verdict-tags{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:22px 28px;margin-bottom:20px;box-shadow:var(--shadow);transition:var(--transition)}
+.card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.5);border-color:var(--gold)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.card-header .icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:var(--gold)}
+.card-header h2{font-size:18px;font-weight:700;color:#fff;letter-spacing:0.5px}
+.card-header .sub{margin-left:auto;font-size:11px;color:var(--text-muted)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.news-list{max-height:300px;overflow-y:auto;font-size:13px}
+.news-item{display:flex;align-items:baseline;gap:6px;padding:7px 0;border-bottom:1px dashed var(--border);color:var(--text-secondary)}
+.news-item .bullet{color:var(--red-up);font-weight:700;font-size:16px}
+.tag{display:inline-block;padding:3px 12px;border-radius:14px;font-size:11px;font-weight:600;background:rgba(212,168,83,0.15);color:var(--gold-light);border:1px solid var(--gold);margin-right:6px;margin-bottom:4px}
+table.cons{width:100%;border-collapse:collapse;font-size:13px;background:var(--card-bg-alt);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+table.cons thead th{background:linear-gradient(180deg,#2c1a1a 0%,#1c1010 100%);color:#fff;font-weight:600;padding:10px 12px;text-align:left;font-size:12px;letter-spacing:1px}
+table.cons tbody tr{border-bottom:1px dashed var(--border)}
+table.cons tbody tr:hover{background:rgba(255,255,255,0.02)}
+table.cons tbody td{padding:9px 12px;vertical-align:middle;color:var(--text-secondary)}
+.val-up{color:var(--red-up);font-weight:600}
+.val-down{color:var(--green-down);font-weight:600}
+.chain-svg{background:var(--card-bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:16px 0;text-align:center}
+.scenario{background:var(--card-bg-alt);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center;border-left:4px solid var(--gold)}
+.scenario.bear{border-left-color:var(--green-down)}
+.scenario.bull{border-left-color:var(--red-up)}
+.scenario .prob{font-size:11px;color:var(--text-muted)}
+.alert-list{list-style:none;padding:0}
+.alert-list li{padding:8px 14px;margin:6px 0;border-radius:6px;background:var(--card-bg-alt);border-left:4px solid var(--orange-warn);font-size:13px;font-weight:500;color:var(--text-secondary)}
+.rating-callout{background:linear-gradient(135deg,#1e1a10 0%,#241f14 100%);border:2px solid var(--gold);border-radius:var(--radius);padding:18px 24px;margin-top:16px;display:flex;align-items:center;gap:16px}
+.rating-callout .badge{min-width:64px;height:64px;border-radius:50%;background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;letter-spacing:1px}
+.rating-callout .body{flex:1}
+.rating-callout .body .title{font-size:16px;font-weight:700;color:#fff}
+.rating-callout .body .desc{font-size:12px;color:var(--text-secondary);margin-top:4px;line-height:1.6}
+.verdict-highlight{background:var(--card-bg-alt);border-radius:10px;padding:18px 22px;margin-top:8px}
+.verdict-highlight .judgment{font-size:22px;font-weight:800;color:var(--gold);text-align:center;margin-bottom:12px}
+.verdict-highlight .verdict-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.verdict-highlight .verdict-item{text-align:center;padding:8px}
+.verdict-highlight .verdict-item .v-val{font-size:18px;font-weight:800}
+.verdict-highlight .verdict-item .v-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.score-bar{display:flex;align-items:center;gap:8px;margin:6px 0}
+.score-bar .score-label{width:100px;text-align:right;font-size:12px;color:var(--text-muted)}
+.score-bar .score-track{flex:1;height:8px;background:#2a2d3a;border-radius:6px;overflow:hidden}
+.score-bar .score-fill{height:100%;border-radius:6px;background:var(--gold)}
+.score-bar .score-num{width:50px;font-size:13px;font-weight:700;text-align:center;color:var(--text-primary)}
+.kpi-info-row{display:flex;justify-content:space-around;margin-top:18px;padding-top:14px;border-top:2px solid var(--border)}
+.kpi-info-item{text-align:center}
+.kpi-info-item .label{font-size:12px;color:var(--text-muted)}
+.kpi-info-item .value{font-size:20px;font-weight:700;color:var(--gold-light)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;font-size:13px}
+.info-grid dt{color:var(--text-muted)}
+.info-grid dd{color:var(--text-secondary);font-weight:500}
+.checklist{list-style:none;padding:0;font-size:13px}
+.checklist li{padding:5px 0;color:var(--text-secondary)}
+.checklist li::before{content:'☐ ';color:var(--gold)}
+@media(max-width:850px){.grid-2,.grid-3{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.hero-price{font-size:40px}}
+footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:24px}
+body.light-mode .top-nav{background:rgba(255,251,245,0.92);border-bottom-color:var(--gold)}
+body.light-mode .nav-links a{color:var(--gold)}
+body.light-mode .nav-links a:hover,body.light-mode .nav-links a.active{background:rgba(0,0,0,0.05);color:#7f1d1d}
+body.light-mode .hero{background:linear-gradient(105deg,#fef5e7,#fffbf5);color:var(--text-primary);border-color:var(--gold)}
+body.light-mode .hero-price{color:var(--text-primary)}
+body.light-mode .hero-change{background:rgba(220,38,38,0.1);color:var(--red-up)}
+body.light-mode .hero-meta-item .val{color:var(--gold)}
+body.light-mode .hero-meta-item .label{color:var(--text-muted)}
+body.light-mode .hero-tag{background:rgba(212,168,83,0.15);border-color:var(--gold);color:var(--gold)}
+body.light-mode .conclusion-top{background:linear-gradient(135deg,#fff9f0,#fef5e7)}
+body.light-mode .conclusion-top .big-verdict{color:var(--text-primary)}
+body.light-mode .card-header h2{color:var(--text-primary)}
+body.light-mode .tag{background:rgba(212,168,83,0.15);color:var(--gold);border-color:var(--gold)}
+body.light-mode table.cons thead th{background:linear-gradient(180deg,#f55656,#c0392b)}
+body.light-mode .score-bar .score-track{background:#f0e4ce}
+body.light-mode .rating-callout{background:linear-gradient(135deg,#fff9f0,#fef5e7)}
+body.light-mode .rating-callout .body .title{color:var(--text-primary)}
+body.light-mode .verdict-highlight{background:#fef5e7}
+body.light-mode .verdict-highlight .judgment{color:var(--gold)}
+body.light-mode .verdict-highlight .v-val{color:var(--text-primary)}
+.chain-svg .svg-hdr{fill:#e8e9ec}
+.chain-svg .svg-sub{fill:#b0b3be}
+body.light-mode .chain-svg .svg-hdr{fill:#2a1f12}
+body.light-mode .chain-svg .svg-sub{fill:#6b5634}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+<div class="logo"><div class="logo-icon">长</div><span class="stock-name">中国长城</span><span class="stock-code">000066.SZ</span></div>
+<div class="nav-links">
+<a href="#hero" class="active">行情</a><a href="#conclusion-top">结论</a><a href="#profile">画像</a><a href="#kline-section">K线</a><a href="#mission">任务</a><a href="#macro">宏观</a><a href="#chain">产业链</a><a href="#quality">质量</a><a href="#elasticity">弹性</a><a href="#risk">风险</a><a href="#valuation">估值</a><a href="#compare">对标</a><a href="#tracking">跟踪</a>
+</div>
+<button class="theme-toggle" id="themeToggle">☀️ 浅色模式</button>
+</nav>
+<div class="container">
+<div class="hero" id="hero">
+<div class="hero-price-block"><span class="hero-price">19.82</span><span class="hero-change">+9.99% 涨停</span></div>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="val">63分</div><div class="label">质量评级</div></div>
+<div class="hero-meta-item"><div class="val">18-25元</div><div class="label">中期目标价</div></div>
+<div class="hero-meta-item"><div class="val">1.6-3.2x</div><div class="label">盈亏比(回调介入)</div></div>
+<div class="hero-meta-item"><div class="val" style="color:var(--orange-warn);">⚠️ 中</div><div class="label">风险等级</div></div>
+</div>
+<div class="hero-tags"><span class="hero-tag">信创国家队</span><span class="hero-tag">飞腾CPU</span><span class="hero-tag">AI算力</span><span class="hero-tag">央企改革</span><span class="hero-tag">PKS生态</span></div>
+</div>
+
+<div class="conclusion-top" id="conclusion-top">
+<div class="big-verdict">🎯 结论：信创+AI双主线的稀缺国家队标的，飞腾CPU是核心价值锚，但整机低毛利率需等待修复</div>
+<div class="verdict-detail">
+中国长城是CEC旗下信创计算产业主力军，持有飞腾CPU 31.5%股权（国内ARM CPU双雄之一）。FY2025营收158亿(+11.3%)，亏损大幅收窄至-0.56亿（FY2024为-14.79亿），处于<strong style="color:#f55656;">扭亏拐点</strong>。信创2.0（党政→行业）+ AI算力（DeepSeek一体机）+ 央企改革三重催化叠加，但整机制造毛利率仅16.6%、扣非仍亏6.5亿是必须正视的硬伤。<strong>适合在回调至16-18元区间作为信创主题配置（仓位≤15%），不追高。</strong>核心跟踪指标：毛利率能否修复至18%+、飞腾CPU份额变化。
+</div>
+<div class="verdict-tags"><span class="tag">主题配置型</span><span class="tag">信创+AI双主线</span><span class="tag">飞腾CPU</span><span class="tag">择时参与</span><span class="tag">仓位≤15%</span><span class="tag">五维65/100</span></div>
+</div>
+
+<div class="grid-2" id="profile">
+<div class="card">
+<div class="card-header"><span class="icon">🏢</span><h2>公司画像</h2></div>
+<p><strong style="color:#f55656;">主营业务：</strong>计算产业(75.3%)、系统装备(19.5%)、其他(5.2%) — 信创PC/服务器整机+军工电子+电源</p>
+<div style="margin:12px 0;"><span class="tag">信创国家队</span><span class="tag">飞腾CPU第一大股东</span><span class="tag">PKS生态核心</span><span class="tag">党政市占率1/3</span></div>
+<dl class="info-grid" style="margin-top:12px;">
+<dt>公司全称</dt><dd>中国长城科技集团股份有限公司</dd>
+<dt>上市日期</dt><dd>1997-06-26 · 深交所主板</dd>
+<dt>注册地</dt><dd>广东省深圳市南山区</dd>
+<dt>所属行业</dt><dd>计算机设备 / 信创</dd>
+<dt>总股本</dt><dd>32.26亿股</dd>
+<dt>实际控制人</dt><dd>中国电子信息产业集团(CEC)</dd>
+<dt>员工人数</dt><dd>12,980人</dd>
+<dt>法定代表人</dt><dd>戴湘桃</dd>
+<dt>官网</dt><dd>www.greatwall.com.cn</dd>
+</dl>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:10px;">中国电子旗下计算产业主力军，以服务国家战略需求为导向，聚焦自主智算产业。通过"芯端一体、双轮驱动"战略，从基础软件到整机业务系统的全链条创新。旗下飞腾CPU是国内ARM架构双雄之一（与华为鲲鹏共建"鹏腾"生态），2025年入围中央国家机关集采，移动5G基站CPU全中标。</p>
+</div>
+<div class="card">
+<div class="card-header"><span class="icon">📰</span><h2>近期动态</h2></div>
+<div class="news-list">
+<div class="news-item"><span class="bullet">•</span> 2026-04-30 涨停+9.99%，收盘19.82元，成交83.21亿，换手13.4%</div>
+<div class="news-item"><span class="bullet">•</span> FY2025营收158.09亿(+11.3%)，归母净利-5572万(同比亏损大幅收窄)</div>
+<div class="news-item"><span class="bullet">•</span> Q1 2026归母净利-8361.70万，同比亏损继续缩小</div>
+<div class="news-item"><span class="bullet">•</span> 民生证券：AI算力"国家队"持续发力，核心业务竞争力增强</div>
+<div class="news-item"><span class="bullet">•</span> 飞腾S5000C-M CPU全中标中国移动5G扩皮基站集采(8000台)</div>
+<div class="news-item"><span class="bullet">•</span> 信创硬件市场规模预计2026年达7889.5亿元(赛迪报告)</div>
+<div class="news-item"><span class="bullet">•</span> DeepSeek V4发布，国产算力+国产模型全栈自主可控加速</div>
+<div class="news-item"><span class="bullet">•</span> 鹏腾生态(飞腾+鲲鹏)持续扩大国产算力市场空间</div>
+</div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<div class="card-header"><span class="icon">📊</span><h2>主营业务构成</h2><span class="sub">FY2025年报</span></div>
+<div id="chart-business-pie" style="width:100%;height:280px;"></div>
+<div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:6px;">
+计算产业(75.3%·毛利率15.4%) | 系统装备(19.5%·毛利率17.1%) | 其他(5.2%·毛利率30.6%)
+</div>
+</div>
+<div class="card">
+<div class="card-header"><span class="icon">📈</span><h2>关键财务指标</h2><span class="sub">FY2021-FY2025</span></div>
+<table class="cons">
+<thead><tr><th>指标</th><th>FY2025</th><th>FY2024</th><th>FY2023</th><th>FY2022</th><th>FY2021</th></tr></thead>
+<tbody>
+<tr><td>营收(亿)</td><td>158.09</td><td>142.03</td><td>134.20</td><td>140.27</td><td>177.90</td></tr>
+<tr><td>营收增速</td><td class="val-up">+11.3%</td><td class="val-up">+5.8%</td><td class="val-down">-4.3%</td><td class="val-down">-21.2%</td><td class="val-up">+23.2%</td></tr>
+<tr><td>归母净利(亿)</td><td class="val-down">-0.56</td><td class="val-down">-14.79</td><td class="val-down">-9.77</td><td>0.12</td><td>5.98</td></tr>
+<tr><td>扣非净利(亿)</td><td class="val-down">-6.50</td><td class="val-down">-14.80</td><td class="val-down">-11.80</td><td>0.01</td><td>1.32</td></tr>
+<tr><td>毛利率</td><td>16.6%</td><td>15.4%</td><td>21.6%</td><td>25.2%</td><td>20.9%</td></tr>
+<tr><td>ROE</td><td class="val-down">-0.50%</td><td class="val-down">-12.4%</td><td class="val-down">-7.4%</td><td>0.92%</td><td>6.37%</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="card" id="kline-section">
+<div class="card-header"><span class="icon">📈</span><h2>K线图 · 近120个交易日</h2><span class="sub">前复权日K · MA5/MA20/MA60</span></div>
+<div id="chart-kline-full" style="width:100%;height:480px;"></div>
+<div class="kpi-info-row">
+<div class="kpi-info-item"><div class="label">向上空间(目标22元)</div><div class="value">+11.0%</div></div>
+<div class="kpi-info-item"><div class="label">盈亏比(16元介入)</div><div class="value">1.6-3.2x</div></div>
+<div class="kpi-info-item"><div class="label">目标价(中期)</div><div class="value">18-25元</div></div>
+<div class="kpi-info-item"><div class="label">建议周期</div><div class="value">6-12月</div></div>
+</div>
+</div>
+
+<!-- Step 0: 任务锁定 -->
+<div class="card" id="mission">
+<div class="card-header"><span class="icon">🎯</span><h2>任务锁定与核心矛盾</h2></div>
+<p style="color:var(--text-secondary);line-height:1.8;">中国长城是国内信创整机+CPU（飞腾）双轮驱动的国家队龙头，当前处于<strong style="color:var(--red-up);">亏损收窄→扭亏→盈利释放</strong>的拐点阶段。AI算力（DeepSeek一体机）+ 信创2.0（党政→行业拓展）+ 央企改革三重催化叠加，但毛利率持续下行、扣非亏损扩大等隐忧不容忽视。</p>
+<div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;">
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">标的</div><div style="font-weight:700;color:#fff;">中国长城 000066.SZ</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">周期</div><div style="font-weight:700;color:var(--gold-light);">中线6-12月</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">风格预判</div><div style="font-weight:700;color:var(--orange-warn);">主题驱动+左侧博弈</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">核心命题</div><div style="font-weight:700;color:#fff;">扭亏拐点验证</div></div>
+</div>
+</div>
+
+<!-- Step 1: 宏观与周期定位 -->
+<div class="card" id="macro">
+<div class="card-header"><span class="icon">🌍</span><h2>宏观与周期定位</h2></div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">经济周期映射</h3>
+<ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+<li style="padding:4px 0;">• 宏观经济阶段：中国经济处于结构调整期，数字经济/信创成为新质生产力的核心抓手</li>
+<li style="padding:4px 0;">• 行业周期位置：信创产业从1.0（党政试点）进入2.0（行业规模化推广），处于<strong style="color:var(--red-up);">加速渗透早期</strong>，未来3-5年高景气</li>
+<li style="padding:4px 0;">• 政策周期：十五五规划强化"算力、算法、数据高效供给"，自主可控从"可用"到"好用"升级</li>
+<li style="padding:4px 0;">• 公司所处阶段：营收恢复增长（FY2025 +11.3%），盈利能力处于底部修复期</li>
+</ul>
+</div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">政策与环境扫描</h3>
+<ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+<li style="padding:4px 0;">• 信创市场空间确定性强：赛迪报告预测2026年信创硬件市场规模达7889.5亿元</li>
+<li style="padding:4px 0;">• AI算力自主可控紧迫：英伟达高端GPU对华禁售，国产AI算力成为国家战略刚需</li>
+<li style="padding:4px 0;">• 央企改革加速：CEC/CETC领导层调整，并购重组和资产整合预期升温</li>
+<li style="padding:4px 0;">• 行业信创下沉：飞腾CPU在5G基站（移动集采全中标）、金融信创（52家银行）等场景持续突破</li>
+</ul>
+</div>
+<div style="background:var(--card-bg-alt);padding:14px 18px;border-radius:8px;border-left:4px solid var(--gold);">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:6px;">核心矛盾</h3>
+<p style="font-size:14px;color:var(--text-secondary);"><strong style="color:var(--red-up);">国产替代的确定性</strong> vs <strong style="color:var(--green-down);">盈利能力的脆弱性</strong> — 营收增长但毛利率持续下行（25%→16%），扣非净利润连续3年大额亏损，何时能实现"有质量的盈利"是关键。</p>
+</div>
+</div>
+
+<!-- Step 2: 产业链深度拆解 -->
+<div class="card" id="chain">
+<div class="card-header"><span class="icon">🔗</span><h2>产业链深度拆解</h2></div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">题材来源判断</h3>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+1. <strong style="color:var(--red-up);">信创替代（存量逻辑）：</strong>党政+央企+关基行业的PC/服务器国产化替代，飞腾CPU+长城整机=芯端一体<br>
+2. <strong style="color:var(--red-up);">AI算力（增量逻辑）：</strong>DeepSeek等国产大模型爆发→训推一体机需求→长城AI服务器+飞腾CPU组合<br>
+3. <strong style="color:var(--gold-light);">央企改革（事件催化）：</strong>CEC集团资产整合、飞腾独立上市预期、国企改革深化
+</p>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">产业链图谱</h3>
+<div class="chain-svg">
+<svg viewBox="0 0 800 175" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto"><polygon points="0 0,10 4,0 8" fill="#d4a853"/></marker></defs>
+<rect x="10" y="35" width="150" height="100" fill="var(--card-bg-alt)" stroke="#d4a853" stroke-width="2" rx="10"/>
+<text x="85" y="62" text-anchor="middle" font-weight="700" font-size="14" class="svg-hdr">上游·芯片/IP</text>
+<text x="85" y="82" text-anchor="middle" font-size="11" class="svg-sub">ARM授权/半导体制造</text>
+<text x="85" y="98" text-anchor="middle" font-size="11" class="svg-sub">GPU/NPU(昇腾/寒武纪)</text>
+<text x="85" y="114" text-anchor="middle" font-size="11" class="svg-sub">国产OS/DB(麒麟/达梦)</text>
+<line x1="160" y1="85" x2="230" y2="85" stroke="#d4a853" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="235" y="20" width="220" height="130" fill="var(--card-bg-alt)" stroke="#f55656" stroke-width="3" rx="12"/>
+<text x="345" y="50" text-anchor="middle" font-weight="800" font-size="16" fill="#f55656">中游·芯端一体</text>
+<text x="345" y="72" text-anchor="middle" font-size="12" class="svg-hdr">飞腾CPU设计(持股31.5%)</text>
+<text x="345" y="92" text-anchor="middle" font-size="12" class="svg-sub">长城整机制造(PKS体系)</text>
+<text x="345" y="112" text-anchor="middle" font-size="12" class="svg-sub">AI训推一体机(DeepSeek)</text>
+<text x="345" y="132" text-anchor="middle" font-size="12" class="svg-sub">系统装备(军工电子+电源)</text>
+<line x1="455" y1="85" x2="525" y2="85" stroke="#d4a853" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="530" y="35" width="250" height="100" fill="var(--card-bg-alt)" stroke="#d4a853" stroke-width="2" rx="10"/>
+<text x="655" y="62" text-anchor="middle" font-weight="700" font-size="14" class="svg-hdr">下游·应用场景</text>
+<text x="655" y="82" text-anchor="middle" font-size="11" class="svg-sub">党政信创PC/服务器</text>
+<text x="655" y="98" text-anchor="middle" font-size="11" class="svg-sub">金融/电信/能源信创</text>
+<text x="655" y="114" text-anchor="middle" font-size="11" class="svg-sub">智算中心/大模型推理</text>
+</svg>
+</div>
+<div class="grid-2" style="margin-top:16px;">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">趋势三要素</h3>
+<table class="cons"><thead><tr><th>维度</th><th>评估</th><th>打分</th></tr></thead>
+<tbody>
+<tr><td>国产替代紧迫性</td><td>CPU/OS自主可控是国家安全刚需</td><td>⭐⭐⭐⭐⭐</td></tr>
+<tr><td>市场空间增速</td><td>信创硬件2026年7889亿，CPU替代300亿+</td><td>⭐⭐⭐⭐</td></tr>
+<tr><td>公司竞争卡位</td><td>飞腾CPU+长城整机+央企背景</td><td>⭐⭐⭐⭐</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">价值链利润分布</h3>
+<table class="cons"><thead><tr><th>环节</th><th>代表企业</th><th>毛利率</th></tr></thead>
+<tbody>
+<tr><td>CPU芯片设计</td><td>Intel/AMD/飞腾/海光</td><td>50-65%</td></tr>
+<tr><td>整机制造</td><td>联想/华为/长城</td><td style="color:var(--orange-warn);">10-18%</td></tr>
+<tr><td>系统集成</td><td>浪潮/曙光/长城</td><td>15-25%</td></tr>
+<tr><td>AI服务器</td><td>浪潮/曙光/华为/长城</td><td>20-35%</td></tr>
+</tbody></table>
+</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;padding:10px 14px;background:var(--card-bg-alt);border-radius:6px;">💡 <strong>关键判断：</strong>整机制造毛利率仅15%，赚的是"组装"的钱；核心价值在飞腾CPU股权（芯端一体），飞腾若独立上市，持股价值将获重估。</p>
+</div>
+
+<!-- Step 3: 公司筛选与质量评分 -->
+<div class="card" id="quality">
+<div class="card-header"><span class="icon">⭐</span><h2>公司筛选与质量评分</h2><span class="sub">63/100 · 中等偏上</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">正面清单</h3>
+<table class="cons"><tbody>
+<tr><td>✅ 行业空间大</td><td>信创+AI算力双万亿赛道</td></tr>
+<tr><td>✅ 竞争壁垒</td><td>CEC央企+飞腾ARM授权+党政市占率1/3</td></tr>
+<tr><td>✅ 政策催化</td><td>十五五+信创2.0+AI自主可控</td></tr>
+<tr><td>✅ 业绩拐点</td><td>FY2025亏损大幅收窄至-0.56亿</td></tr>
+<tr><td>⚠️ 盈利质量</td><td>扣非仍亏6.5亿，毛利率仅16.6%</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">负面排查</h3>
+<table class="cons"><tbody>
+<tr><td>❌ 财务造假</td><td>无明显迹象（央企审计严格）</td></tr>
+<tr><td>❌ 大股东侵占</td><td>CEC央企控股，治理规范</td></tr>
+<tr><td>⚠️ 商誉暴雷</td><td>需关注（历史并购较多）</td></tr>
+<tr><td>❌ 退市风险</td><td>营收158亿，主营业务正常</td></tr>
+<tr><td>❌ 行业天花板</td><td>信创仍在加速期</td></tr>
+</tbody></table>
+</div>
+</div>
+<div style="margin-top:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">质量评分 · 100分制</h3>
+<div class="score-bar"><span class="score-label">行业空间</span><div class="score-track"><div class="score-fill" style="width:90%;"></div></div><span class="score-num">18/20</span></div>
+<div class="score-bar"><span class="score-label">竞争壁垒</span><div class="score-track"><div class="score-fill" style="width:80%;"></div></div><span class="score-num">16/20</span></div>
+<div class="score-bar"><span class="score-label">成长性</span><div class="score-track"><div class="score-fill" style="width:50%;"></div></div><span class="score-num">10/20</span></div>
+<div class="score-bar"><span class="score-label">盈利能力</span><div class="score-track"><div class="score-fill" style="width:20%;background:var(--red-up);"></div></div><span class="score-num">3/15</span></div>
+<div class="score-bar"><span class="score-label">治理结构</span><div class="score-track"><div class="score-fill" style="width:67%;"></div></div><span class="score-num">10/15</span></div>
+<div class="score-bar"><span class="score-label">估值性价比</span><div class="score-track"><div class="score-fill" style="width:60%;"></div></div><span class="score-num">6/10</span></div>
+<div class="rating-callout">
+<div class="badge">63</div>
+<div class="body"><div class="title">63 / 100 · 信创赛道稀缺标的，但盈利短板明显</div><div class="desc">行业赛道+政策催化是核心加分项，飞腾CPU的战略价值是最大资产。但整机制造毛利率偏低、扣非亏损持续3年，短期盈利能力是硬伤。适合作为信创主题核心配置，但需接受盈利修复的不确定性。</div></div>
+</div>
+</div>
+</div>
+
+<!-- Step 4: 业绩弹性测算 -->
+<div class="card" id="elasticity">
+<div class="card-header"><span class="icon">⚡</span><h2>业绩弹性测算</h2></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">分业务弹性树</h3>
+<div style="background:var(--card-bg-alt);border:2px solid var(--gold);border-radius:10px;padding:16px;margin-bottom:16px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="background:linear-gradient(135deg,#1e1a10,#2c1a1a);border:2px solid var(--gold);border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px;color:#fff;">中国长城 FY2025营收 158亿</div>
+<div style="text-align:center;width:100%;"><span style="display:inline-block;width:2px;height:6px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="display:flex;width:100%;">
+<div style="flex:2;padding-right:5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="flex:1;padding:0 5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="flex:1;padding-left:5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+</div>
+<div style="display:flex;gap:10px;width:100%;">
+<div style="flex:2;background:rgba(245,86,86,0.08);border:1px solid rgba(245,86,86,0.3);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--red-up);font-size:14px;">🔴 计算产业</div>
+<div style="font-size:11px;color:var(--text-muted);">75%营收·119亿·毛利率15.4%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">信创PC/服务器<br>AI服务器/训推一体机<br>通用计算设备</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">弹性因子：信创招标节奏·飞腾份额·DeepSeek部署</div>
+</div>
+<div style="flex:1;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.3);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--gold-light);font-size:13px;">🟡 系统装备</div>
+<div style="font-size:11px;color:var(--text-muted);">20%营收·31亿·毛利率17.1%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">军工电子<br>电源/园区服务</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">弹性因子：国防预算·基建投资</div>
+</div>
+<div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--text-secondary);font-size:13px;">⚪ 其他</div>
+<div style="font-size:11px;color:var(--text-muted);">5%营收·8亿·毛利率30.6%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">物业/租赁等</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">稳定性强·弹性弱</div>
+</div>
+</div>
+</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">价格敏感度公式</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:14px 18px;margin-bottom:12px;">
+<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-align:center;">核心公式</div>
+<div style="font-family:var(--font-mono);font-size:14px;color:var(--text-primary);text-align:center;padding:10px 16px;background:rgba(245,86,86,0.06);border-radius:8px;margin-bottom:10px;">
+<strong>净利润 = 营收 &times; (毛利率 &minus; 费用率) &times; (1 &minus; 税率)</strong>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+<div style="background:rgba(245,86,86,0.06);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">当前状态 · 158亿营收 · 16.6%毛利率</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+158亿 &times; (16.6% &minus; 22%) = <strong style="color:var(--red-up);font-size:16px;">&minus;8.5亿</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">与扣非&minus;6.5亿接近</div>
+</div>
+<div style="background:rgba(40,199,91,0.06);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">营收+10% · 174亿 · 毛利率不变</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+174亿 &times; (16.6% &minus; 22%) = <strong style="color:var(--red-up);font-size:16px;">&minus;9.4亿</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">规模不经济，亏损扩大</div>
+</div>
+<div style="background:rgba(212,168,83,0.08);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">毛利率+3pp · 158亿 · 19.6%毛利率</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+158亿 &times; (19.6% &minus; 22%) = <strong style="color:var(--orange-warn);font-size:16px;">&minus;3.8亿</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">改善显著，亏损大幅收窄</div>
+</div>
+<div style="background:rgba(245,86,86,0.1);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,86,86,0.3);">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">营收+10% & 毛利率+3pp · 双重改善</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+174亿 &times; (19.6% &minus; 20%) = <strong style="color:var(--red-up);font-size:18px;">扭亏为盈</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">最佳路径：量价齐升</div>
+</div>
+</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-muted);padding:8px 12px;background:rgba(212,168,83,0.08);border-radius:6px;">💡 关键结论：弹性核心不在"量"（营收增长），而在"价"（毛利率修复）。毛利率每提升1pp，释放约<strong style="color:var(--gold-light);">1.58亿</strong>税前利润。</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">情景分析</h3>
+<div class="grid-3">
+<div class="scenario bull"><strong>🟢 乐观情景</strong><div class="prob">概率 25%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">信创全面加速<br>飞腾份额50%+<br>AI服务器放量50亿+<br>毛利率修复至20%+<br>FY2026营收200亿<br>归母净利3-5亿<br><strong style="color:var(--red-up);">目标价25-30元</strong></div></div>
+<div class="scenario"><strong>🟡 基准情景</strong><div class="prob">概率 50%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">党政稳增+行业渐进<br>AI服务器贡献10-20亿<br>毛利率维持16-17%<br>FY2026营收175亿<br>归母净利-0.5~0.5亿<br><strong style="color:var(--gold-light);">目标价18-22元</strong></div></div>
+<div class="scenario bear"><strong>🔴 悲观情景</strong><div class="prob">概率 25%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">信创不及预期<br>招标推迟<br>AI算力需求弱<br>毛利率跌破14%<br>FY2026营收155亿<br>亏损扩大至3-5亿<br><strong style="color:var(--green-down);">目标价12-15元</strong></div></div>
+</div>
+</div>
+
+<!-- Step 5: 风险分析 -->
+<div class="card" id="risk">
+<div class="card-header"><span class="icon">⚠️</span><h2>风险分析</h2><span class="sub">5个强制止损信号</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">风险清单</h3>
+<table class="cons"><thead><tr><th>风险类型</th><th>描述</th><th>影响</th><th>概率</th></tr></thead>
+<tbody>
+<tr><td>🔴 毛利率持续下行</td><td>计算产业竞争加剧，整机价格战</td><td class="val-down">致命</td><td>中(40%)</td></tr>
+<tr><td>🔴 扣非亏损持续</td><td>费用率高企，扭亏不及预期</td><td class="val-down">重大</td><td>中(35%)</td></tr>
+<tr><td>🟡 信创政策节奏</td><td>党政高峰期已过，行业推广不确定</td><td style="color:var(--orange-warn);">重大</td><td>中(30%)</td></tr>
+<tr><td>🟡 飞腾份额下降</td><td>华为鲲鹏回归、海光x86生态优势</td><td style="color:var(--orange-warn);">中等</td><td>中低(25%)</td></tr>
+<tr><td>🟡 商誉减值</td><td>历史并购商誉较高</td><td style="color:var(--orange-warn);">中等</td><td>低(15%)</td></tr>
+<tr><td>⚪ 供应链风险</td><td>先进制程代工受限，影响CPU迭代</td><td style="color:var(--orange-warn);">中等</td><td>低(20%)</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--orange-warn);margin-bottom:10px;">逻辑破坏条件（止损信号）</h3>
+<ul class="alert-list">
+<li><strong>1.</strong> 飞腾CPU连续2个季度份额下滑 → 核心逻辑被破坏</li>
+<li><strong>2.</strong> 毛利率跌破14%且无改善趋势 → 盈利模型崩溃</li>
+<li><strong>3.</strong> 信创政策大幅收缩或推迟 → 行业逻辑逆转</li>
+<li><strong>4.</strong> CEC集团将飞腾股权剥离或转让 → 核心资产丧失</li>
+<li><strong>5.</strong> 扣非亏损连续2年超10亿 → 现金流枯竭风险</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- Step 6: 估值与买卖时机 -->
+<div class="card" id="valuation">
+<div class="card-header"><span class="icon">💰</span><h2>估值与买卖时机</h2><span class="sub">PS 4.0x · 盈亏比回调后 1.6-3.2x</span></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">三种估值方法交叉验证</h3>
+<table class="cons"><thead><tr><th>估值方法</th><th>计算依据</th><th>合理市值</th><th>对应股价</th></tr></thead>
+<tbody>
+<tr><td><strong>PS估值</strong></td><td>FY2025营收158亿 × PS 3-5x</td><td>474-790亿</td><td>14.7-24.5元</td></tr>
+<tr><td><strong style="color:var(--gold-light);">分部估值</strong></td><td>整机120亿 + 系统装备47亿 + 飞腾31.5%股权220-354亿</td><td style="color:var(--gold-light);">324-419亿</td><td style="color:var(--gold-light);">10-13元</td></tr>
+<tr><td><strong style="color:var(--red-up);">飞腾重估</strong></td><td>飞腾35-45亿营收 × 20-25x PS × 31.5%持股</td><td style="color:var(--red-up);">仅飞腾股权=220-354亿</td><td style="color:var(--red-up);">≈长城当前市值</td></tr>
+</tbody></table>
+<div class="grid-2" style="margin-top:12px;">
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<strong style="color:var(--gold);">资金面分析</strong>
+<p style="color:var(--text-secondary);margin-top:4px;">· 4/30涨停成交83亿，换手率13.4%，筹码快速交换<br>· 北向资金（陆股通）为第三大股东<br>· 公募基金配置：国泰中证军工ETF、中证500ETF等<br>· 融资融券标的，近期融资余额需关注</p>
+</div>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<strong style="color:var(--gold);">技术面分析</strong>
+<p style="color:var(--text-secondary);margin-top:4px;">· 当前19.82元，涨停板，从24元高点回落后反弹<br>· 区间最低约8元(2024初)，3年区间振幅大<br>· MA60提供中长期支撑参考<br>· 上方压力24元(前高)，下方支撑14-15元</p>
+</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">三档目标价</h3>
+<table class="cons"><thead><tr><th>档位</th><th>时间窗口</th><th>目标价</th><th>上涨空间</th><th>核心假设</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--red-up);">短期(交易)</td><td>1-3个月</td><td class="val-up">22-24元</td><td>+11~21%</td><td>信创+AI情绪催化，前高附近</td></tr>
+<tr><td style="color:var(--gold-light);">中期(配置)</td><td>6-12个月</td><td class="val-up">18-25元</td><td>-9~+26%</td><td>FY2026 H1扭亏进度决定上限</td></tr>
+<tr><td>长期(价值)</td><td>2-3年</td><td class="val-up">25-35元</td><td>+26~77%</td><td>飞腾独立上市+盈利释放</td></tr>
+</tbody></table>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">盈亏比量化</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:14px;font-size:13px;">
+<p style="color:var(--text-secondary);text-align:center;margin-bottom:8px;">
+<strong>现价 19.82元</strong> →
+向上空间（目标22元）：<strong style="color:var(--red-up);">+11.0%</strong><br>
+向下空间（止损15元）：<strong style="color:var(--green-down);">-24.3%</strong>
+→ <strong style="color:var(--orange-warn);">盈亏比 0.46（短线追高风险大）</strong>
+</p>
+<div style="padding:8px 12px;background:rgba(212,168,83,0.08);border-radius:6px;margin-top:8px;">
+<p style="color:var(--text-secondary);text-align:center;">
+<strong style="color:var(--gold-light);">💡 回调介入方案：</strong> 16-17元入场 → 目标22元 = <strong style="color:var(--red-up);">+29~38%</strong>，止损14元 = <strong style="color:var(--green-down);">-12~18%</strong> → <strong style="color:var(--gold);">盈亏比 1.6~3.2x</strong>
+</p>
+</div>
+</div>
+</div>
+
+<!-- Step 7: 对标分析 -->
+<div class="card" id="compare">
+<div class="card-header"><span class="icon">📊</span><h2>对标分析</h2><span class="sub">飞腾CPU价值重估是核心差异点</span></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">案例类比</h3>
+<table class="cons"><thead><tr><th>维度</th><th>中国长城</th><th>中科曙光</th><th>浪潮信息</th><th>海光信息</th></tr></thead>
+<tbody>
+<tr><td>核心定位</td><td style="color:var(--gold-light);">信创整机+CPU</td><td>超算+AI服务器</td><td>通用服务器</td><td>x86 CPU设计</td></tr>
+<tr><td>FY2025营收</td><td>158亿</td><td>~160亿</td><td>~800亿+</td><td>~85亿</td></tr>
+<tr><td>FY2025净利</td><td style="color:var(--red-up);">-0.56亿</td><td>~20亿+</td><td>~25亿+</td><td>~25亿+</td></tr>
+<tr><td>毛利率</td><td style="color:var(--orange-warn);">16.6%</td><td>~25%</td><td>~8%</td><td>~65%</td></tr>
+<tr><td>PS估值</td><td>~4.0x</td><td>~8x</td><td>~1.5x</td><td>~35x</td></tr>
+<tr><td>核心看点</td><td>飞腾CPU+信创</td><td>国产超算龙头</td><td>全球服务器TOP3</td><td>x86稀缺标的</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:10px;">海光是纯CPU设计公司，毛利率65%享受科技股估值；中国长城以低毛利整机制造为主，飞腾CPU股权价值尚未充分释放。如果飞腾独立上市，中国长城将迎来估值体系的系统性重估。</p>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">增长引擎切换</h3>
+<div style="display:flex;gap:12px;font-size:13px;color:var(--text-secondary);flex-wrap:wrap;">
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;opacity:0.6;"><strong>第一引擎(过去)：</strong><br>党政信创PC替换 → 已过高峰期，增速放缓</div>
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;border:1px solid var(--gold);"><strong style="color:var(--gold-light);">第二引擎(现在)：</strong><br>行业信创(金融/电信/能源) + 央企集采 → 正在放量</div>
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;border:1px solid var(--red-up);"><strong style="color:var(--red-up);">第三引擎(未来)：</strong><br>AI算力(训推一体机) + 飞腾向服务器突破 → 早期</div>
+</div>
+</div>
+
+<!-- Step 8: 跟踪计划与综合结论 -->
+<div class="card" id="tracking">
+<div class="card-header"><span class="icon">📋</span><h2>跟踪计划与综合结论</h2><span class="sub">五维 65/100 · 主题配置型 · 仓位≤15%</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">分层跟踪锚点</h3>
+<table class="cons"><thead><tr><th>频率</th><th>跟踪指标</th><th>数据来源</th></tr></thead>
+<tbody>
+<tr><td>🔴 高频(日/周)</td><td>股价、成交量、龙虎榜、融资融券</td><td>东方财富/同花顺</td></tr>
+<tr><td>🟡 中频(月)</td><td>信创招标信息、飞腾中标公告、研报覆盖</td><td>政府采购网/券商研报</td></tr>
+<tr><td>⚪ 低频(季)</td><td>财报(毛利率、扣非净利、营收增速)、股东户数</td><td>季报/年报</td></tr>
+<tr><td>📌 事件驱动</td><td>飞腾S5000量产、DeepSeek一体机订单、央企改革</td><td>公司公告</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">执行清单</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<p style="color:var(--red-up);font-weight:600;">短线（1-3个月）：</p>
+<ul class="checklist">
+<li>关注信创板块情绪和AI政策催化</li>
+<li>等待回调至16-17元区间再考虑介入</li>
+<li>追高需谨慎（当前涨停板），盈亏比不理想</li>
+<li>止损位：<strong style="color:var(--green-down);">14元</strong>（飞腾份额连续下滑）</li>
+</ul>
+<p style="color:var(--red-up);font-weight:600;margin-top:8px;">中线（6-12个月）：</p>
+<ul class="checklist">
+<li>等待FY2026 H1财报验证扭亏趋势</li>
+<li>关注飞腾S5000系列量产进展</li>
+<li>跟踪CEC集团资产整合/飞腾上市传闻</li>
+<li>毛利率修复至18%+是关键观察点</li>
+<li>目标价：<strong style="color:var(--red-up);">22-25元</strong>，止损：<strong style="color:var(--green-down);">14元</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="grid-2" style="margin-top:14px;">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">综合结论</h3>
+<div class="verdict-highlight">
+<div class="judgment">信创+AI双主线稀缺国家队标的，飞腾CPU是核心价值锚</div>
+<div class="verdict-grid">
+<div class="verdict-item"><div class="v-val" style="color:var(--orange-warn);">⚠️ 中</div><div class="v-label">风险等级</div></div>
+<div class="verdict-item"><div class="v-val" style="color:var(--gold-light);">回调买入</div><div class="v-label">操作建议</div></div>
+<div class="verdict-item"><div class="v-val" style="color:var(--red-up);">≤15%</div><div class="v-label">仓位上限</div></div>
+<div class="verdict-item"><div class="v-val">6-12月</div><div class="v-label">持仓周期</div></div>
+</div>
+</div>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">五维综合评分</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;">
+<div class="score-bar"><span class="score-label">基本面 45 (30%)</span><div class="score-track"><div class="score-fill" style="width:45%;background:var(--orange-warn);"></div></div><span class="score-num">13.5</span></div>
+<div class="score-bar"><span class="score-label">资金面 65 (20%)</span><div class="score-track"><div class="score-fill" style="width:65%;"></div></div><span class="score-num">13.0</span></div>
+<div class="score-bar"><span class="score-label">技术面 60 (15%)</span><div class="score-track"><div class="score-fill" style="width:60%;"></div></div><span class="score-num">9.0</span></div>
+<div class="score-bar"><span class="score-label">情绪面 75 (15%)</span><div class="score-track"><div class="score-fill" style="width:75%;"></div></div><span class="score-num">11.25</span></div>
+<div class="score-bar"><span class="score-label">事件催化 80 (20%)</span><div class="score-track"><div class="score-fill" style="width:80%;"></div></div><span class="score-num">16.0</span></div>
+<div class="score-bar" style="margin-top:8px;padding-top:8px;border-top:2px solid var(--border);">
+<span class="score-label" style="font-weight:700;color:var(--text-primary);">加权总评</span>
+<div class="score-track"><div class="score-fill" style="width:62.75%;background:var(--gold);"></div></div>
+<span class="score-num" style="font-size:16px;font-weight:800;color:var(--gold);">62.75</span>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:14px;padding:14px 18px;background:rgba(245,86,86,0.08);border-left:4px solid var(--red-up);border-radius:6px;font-size:13px;color:var(--text-secondary);line-height:1.75;">
+<strong style="color:var(--red-up);font-size:15px;">📌 总结</strong><br>
+中国长城是信创+AI算力双主线上的稀缺国家队标的，飞腾CPU（31.5%股权）的战略价值为股价提供底部支撑。FY2025亏损大幅收窄至-0.56亿处于扭亏拐点，但整机制造毛利率仅16.6%、扣非仍亏6.5亿是必须正视的硬伤。信创2.0（党政→行业）+ DeepSeek一体机AI算力 + 央企改革三重催化叠加。<strong style="color:var(--red-up);">适合在回调至16-18元区间作为信创主题配置（仓位≤15%），不追高。</strong>核心跟踪：毛利率修复至18%+、飞腾CPU市场份额变化。
+</div>
+</div>
+
+<footer>
+<p>⚠️ 免责声明：本报告仅供研究参考，不构成投资建议。投资有风险，决策需谨慎。</p>
+<p>数据截止：2025-11-03 | 研究状态：首次覆盖</p>
+<p style="font-size:11px;color:var(--text-muted);">数据来源：akshare(雪球/新浪/同花顺/东方财富/巨潮资讯) · GLM5.1 · DeepSeek-V4-Pro · Claude Opus-4.7 · 2026-05-03 · @明立玩AI · 个股深度研究系统 v2.2</p>
+<p style="margin-top:6px;">作者：明立 · AI教育资深玩家 · AI应用落地近4年经验</p>
+<p>📮 联系作者获取更多skill：ll-mingli1221</p>
+</footer>
+</div>
+<!-- .container end -->
+
+<script>
+(function() {
+const rawData = [
+["2025-11-03",16.84,17.01,16.61,16.99,89021983],
+["2025-11-04",16.9,17.5,16.67,17.02,124079363],
+["2025-11-05",16.69,16.88,16.41,16.59,95955702],
+["2025-11-06",16.57,16.65,16.27,16.63,79982287],
+["2025-11-07",16.51,16.51,16.21,16.23,63880555],
+["2025-11-10",16.22,16.35,16.11,16.2,46529633],
+["2025-11-11",16.22,16.28,16.01,16.08,44025435],
+["2025-11-12",16.01,16.07,15.82,15.92,42963989],
+["2025-11-13",15.92,16.1,15.88,16.07,38061333],
+["2025-11-14",16.0,16.01,15.83,15.86,36317482],
+["2025-11-17",15.88,16.26,15.88,16.17,50441917],
+["2025-11-18",16.13,16.2,16.02,16.13,35425958],
+["2025-11-19",16.13,16.16,15.83,15.87,36970522],
+["2025-11-20",15.97,16.02,15.5,15.52,48035271],
+["2025-11-21",15.37,15.49,14.8,14.82,65784979],
+["2025-11-24",14.95,15.13,14.62,15.07,48803271],
+["2025-11-25",15.08,15.22,15.03,15.05,45179230],
+["2025-11-26",15.0,15.09,14.9,14.92,31570395],
+["2025-11-27",14.9,15.1,14.88,14.89,27449608],
+["2025-11-28",14.88,15.0,14.74,15.0,31319728],
+["2025-12-01",14.9,15.09,14.86,15.07,38872075],
+["2025-12-02",15.05,15.06,14.77,14.81,36817549],
+["2025-12-03",14.81,14.86,14.44,14.46,47119367],
+["2025-12-04",14.46,14.56,14.32,14.56,31266443],
+["2025-12-05",14.58,14.7,14.38,14.66,32540217],
+["2025-12-08",14.67,14.95,14.67,14.83,39213405],
+["2025-12-09",14.78,14.95,14.63,14.67,31397500],
+["2025-12-10",14.61,14.73,14.47,14.68,29133578],
+["2025-12-11",14.68,14.69,14.31,14.32,36873518],
+["2025-12-12",14.35,14.39,14.05,14.05,58044087],
+["2025-12-15",14.06,14.15,13.83,13.96,42676382],
+["2025-12-16",13.91,13.95,13.6,13.68,39621207],
+["2025-12-17",13.68,13.92,13.53,13.9,40894739],
+["2025-12-18",13.79,13.99,13.76,13.84,30149582],
+["2025-12-19",13.9,14.08,13.89,13.92,29819622],
+["2025-12-22",13.96,14.13,13.96,14.07,30047194],
+["2025-12-23",14.13,14.13,13.85,13.92,28498197],
+["2025-12-24",13.93,14.09,13.91,14.09,30965863],
+["2025-12-25",14.09,14.3,14.03,14.2,36370437],
+["2025-12-26",14.21,14.66,14.13,14.52,83280141],
+["2025-12-29",14.53,14.58,14.33,14.37,45514776],
+["2025-12-30",14.28,14.44,14.28,14.29,33115231],
+["2025-12-31",14.27,14.5,14.25,14.41,40220385],
+["2026-01-05",14.46,14.68,14.4,14.62,56930978],
+["2026-01-06",14.58,15.08,14.53,14.98,88759484],
+["2026-01-07",14.99,15.04,14.7,14.79,62021944],
+["2026-01-08",14.69,15.15,14.69,15.09,77998198],
+["2026-01-09",15.12,15.24,14.95,15.11,78484788],
+["2026-01-12",15.35,16.62,15.35,16.62,125024037],
+["2026-01-13",16.99,17.15,16.09,16.14,267762115],
+["2026-01-14",16.23,17.42,16.21,16.74,295529486],
+["2026-01-15",17.0,17.0,16.16,16.35,161441424],
+["2026-01-16",16.28,17.36,15.75,16.57,218499948],
+["2026-01-19",16.21,16.4,15.94,16.23,110651887],
+["2026-01-20",16.6,16.99,16.07,16.2,140326840],
+["2026-01-21",16.32,17.82,16.32,17.82,142590945],
+["2026-01-22",19.6,19.6,18.61,19.5,719230194],
+["2026-01-23",18.8,18.84,18.1,18.29,498715749],
+["2026-01-26",18.26,18.47,17.11,17.23,334779278],
+["2026-01-27",17.07,17.4,16.56,17.08,263014284],
+["2026-01-28",17.13,17.13,16.59,16.6,180935721],
+["2026-01-29",16.8,16.98,16.37,16.42,167805821],
+["2026-01-30",16.2,16.33,15.69,15.87,154622003],
+["2026-02-02",15.9,16.14,15.58,15.65,101149277],
+["2026-02-03",15.84,16.46,15.71,16.36,148335535],
+["2026-02-04",16.08,16.29,15.93,16.11,96418830],
+["2026-02-05",15.9,16.05,15.81,15.86,62697158],
+["2026-02-06",15.7,16.3,15.57,15.99,105362039],
+["2026-02-09",16.26,16.48,16.05,16.3,111814181],
+["2026-02-10",16.2,16.61,16.15,16.24,91812958],
+["2026-02-11",16.14,16.32,15.99,15.99,66042641],
+["2026-02-12",16.13,16.8,15.99,16.5,139676463],
+["2026-02-13",16.36,17.01,16.33,16.72,144590344],
+["2026-02-24",16.78,16.89,16.26,16.42,97434103],
+["2026-02-25",16.52,16.59,16.25,16.3,81812512],
+["2026-02-26",16.26,16.49,16.08,16.33,96398633],
+["2026-02-27",16.18,16.8,16.11,16.59,118438735],
+["2026-03-02",16.45,16.96,16.44,16.52,121734746],
+["2026-03-03",16.45,16.53,15.28,15.29,146729064],
+["2026-03-04",15.07,15.57,15.07,15.18,68405315],
+["2026-03-05",15.59,15.88,15.49,15.67,80727391],
+["2026-03-06",15.55,15.72,15.47,15.69,62257478],
+["2026-03-09",15.55,17.26,15.31,17.26,224712096],
+["2026-03-10",17.45,17.45,16.88,17.01,292591666],
+["2026-03-11",16.95,17.18,16.88,17.0,157426328],
+["2026-03-12",16.91,17.6,16.88,17.11,199697186],
+["2026-03-13",16.9,16.97,16.38,16.41,143445562],
+["2026-03-16",16.29,16.59,15.98,16.45,97144990],
+["2026-03-17",16.59,16.68,15.77,15.77,96561472],
+["2026-03-18",15.79,16.19,15.72,16.15,76632568],
+["2026-03-19",15.78,16.25,15.73,15.93,66670528],
+["2026-03-20",15.97,16.25,15.54,15.66,96242938],
+["2026-03-23",15.18,15.24,14.26,14.34,102199200],
+["2026-03-24",14.6,14.79,14.28,14.72,69214349],
+["2026-03-25",14.73,15.5,14.73,15.08,89358779],
+["2026-03-26",15.67,16.47,15.33,15.41,147066736],
+["2026-03-27",14.91,15.2,14.81,15.07,86102823],
+["2026-03-30",14.74,15.04,14.61,14.91,50931675],
+["2026-03-31",14.84,15.08,14.7,14.71,47396423],
+["2026-04-01",15.0,15.07,14.79,14.85,40914740],
+["2026-04-02",14.8,14.8,14.31,14.43,51073178],
+["2026-04-03",14.49,14.56,14.16,14.19,38969660],
+["2026-04-07",14.21,14.44,14.21,14.25,28606544],
+["2026-04-08",14.57,14.99,14.57,14.98,74442317],
+["2026-04-09",14.8,15.18,14.72,14.9,65447137],
+["2026-04-10",15.18,15.5,15.05,15.06,77245205],
+["2026-04-13",15.27,15.77,15.23,15.39,96775929],
+["2026-04-14",15.45,15.67,15.35,15.57,81468267],
+["2026-04-15",15.68,16.11,15.5,15.65,124791575],
+["2026-04-16",15.66,15.87,15.45,15.6,74403461],
+["2026-04-17",16.2,16.28,15.67,15.72,94078927],
+["2026-04-20",15.78,16.08,15.75,15.85,80290666],
+["2026-04-21",15.69,15.7,15.18,15.41,81337699],
+["2026-04-22",15.4,15.67,15.28,15.61,63272062],
+["2026-04-23",15.98,17.0,15.89,16.19,245664424],
+["2026-04-24",17.36,17.65,16.45,16.45,298731314],
+["2026-04-27",16.62,17.25,16.12,16.77,243769457],
+["2026-04-28",16.63,18.2,16.58,17.83,432241617],
+["2026-04-29",17.33,18.05,16.84,18.02,356283487],
+["2026-04-30",19.0,19.82,18.39,19.82,431571802]
+];
+const dates = [], ohlc = [], volumesRaw = [];
+rawData.forEach(d => {
+dates.push(d[0]);
+ohlc.push([d[1], d[4], d[3], d[2]]);
+volumesRaw.push(d[5]);
+});
+const closes = ohlc.map(d => d[1]);
+const calcMA = (arr, n) => arr.map((_, i) => {
+if (i < n - 1) return null;
+let sum = arr.slice(i - n + 1, i + 1).reduce((a, b) => a + b, 0);
+return +(sum / n).toFixed(2);
+});
+const ma5 = calcMA(closes, 5), ma20 = calcMA(closes, 20), ma60 = calcMA(closes, 60);
+const volumes = volumesRaw.map(v => +(v / 10000).toFixed(2));
+const dateLabels = dates.map(d => { const parts = d.split('-'); return parts[1] + '-' + parts[2]; });
+
+function getThemeColors() {
+const isLight = document.body.classList.contains('light-mode');
+return {
+textColor: isLight ? '#2a1f12' : '#e8e9ec',
+textSecondary: isLight ? '#6b5634' : '#b0b3be',
+textMuted: isLight ? '#9c8b6e' : '#7a7d8a',
+upColor: isLight ? '#dc2626' : '#f55656',
+downColor: isLight ? '#16a34a' : '#28c75b',
+ma5Color: isLight ? '#2563eb' : '#4a90d9',
+ma20Color: isLight ? '#16a34a' : '#28c75b',
+ma60Color: isLight ? '#c2410c' : '#e8923a',
+volUpColor: isLight ? 'rgba(220,38,38,0.25)' : 'rgba(245,86,86,0.35)',
+volDownColor: isLight ? 'rgba(22,163,74,0.25)' : 'rgba(40,199,91,0.35)',
+};
+}
+
+let pieChart, klineChart;
+function renderPie() {
+if (pieChart) pieChart.dispose();
+pieChart = echarts.init(document.getElementById('chart-business-pie'));
+const c = getThemeColors();
+pieChart.setOption({
+tooltip: { trigger: 'item', formatter: '{b}: {d}% (营收{c}亿)' },
+series: [{
+type: 'pie', radius: ['45%', '70%'],
+data: [
+{value:119.05,name:"计算产业"},
+{value:30.87,name:"系统装备"},
+{value:8.16,name:"其他(补充)"}
+],
+label: { fontSize: 11, color: c.textSecondary },
+color: ['#f55656', '#d4a853', '#e8923a']
+}]
+});
+}
+
+function renderKline() {
+if (klineChart) klineChart.dispose();
+klineChart = echarts.init(document.getElementById('chart-kline-full'));
+const c = getThemeColors();
+const volData = volumes.map((v, i) => ({
+value: v,
+itemStyle: { color: ohlc[i][1] >= ohlc[i][0] ? c.volUpColor : c.volDownColor }
+}));
+klineChart.setOption({
+grid: [
+{ left: '9%', right: '6%', top: '12%', height: '55%' },
+{ left: '9%', right: '6%', top: '74%', height: '14%' }
+],
+xAxis: [
+{ type: 'category', data: dateLabels, gridIndex: 0,
+axisLabel: { color: c.textMuted, fontSize: 9, interval: 5 },
+axisLine: { lineStyle: { color: c.textMuted } }, splitLine: { show: false } },
+{ type: 'category', data: dateLabels, gridIndex: 1, show: false, splitLine: { show: false } }
+],
+yAxis: [
+{ scale: true, gridIndex: 0, axisLabel: { color: c.textMuted, fontSize: 10 }, splitLine: { show: false } },
+{ scale: true, gridIndex: 1, axisLabel: { color: c.textMuted, fontSize: 10, formatter: '{value}万' }, splitLine: { show: false } }
+],
+dataZoom: [{ type: 'inside', xAxisIndex: [0, 1] }],
+tooltip: { trigger: 'axis', axisPointer: { type: 'cross' },
+formatter: function(params) {
+const k = params.find(p => p.seriesName === 'K线');
+const vol = params.find(p => p.seriesName === '成交量');
+if (!k || !vol) return '';
+return k.axisValue + '<br/>开: ' + k.data[0] + '  收: ' + k.data[1] + '<br/>低: ' + k.data[2] + '  高: ' + k.data[3] + '<br/>成交量: ' + vol.data.value + '万手';
+}
+},
+legend: { data: ['K线', 'MA5', 'MA20', 'MA60'], top: 0, textStyle: { color: c.textSecondary } },
+series: [
+{ name: 'K线', type: 'candlestick', data: ohlc, xAxisIndex: 0, yAxisIndex: 0,
+itemStyle: { color: c.upColor, color0: c.downColor, borderColor: c.upColor, borderColor0: c.downColor } },
+{ name: 'MA5', type: 'line', data: ma5, smooth: true,
+lineStyle: { width: 1.5, color: c.ma5Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: 'MA20', type: 'line', data: ma20, smooth: true,
+lineStyle: { width: 1.5, color: c.ma20Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: 'MA60', type: 'line', data: ma60, smooth: true,
+lineStyle: { width: 1.5, color: c.ma60Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: '成交量', type: 'bar', data: volData, xAxisIndex: 1, yAxisIndex: 1 }
+]
+});
+}
+
+function renderCharts() { renderPie(); renderKline(); }
+const toggleBtn = document.getElementById('themeToggle');
+toggleBtn.addEventListener('click', () => {
+document.body.classList.toggle('light-mode');
+toggleBtn.textContent = document.body.classList.contains('light-mode') ? '🌙 深色模式' : '☀️ 浅色模式';
+renderCharts();
+});
+renderCharts();
+const sections = document.querySelectorAll('.card[id], .hero[id], .conclusion-top[id]');
+const navs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+let cur = '';
+sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+navs.forEach(a => {
+a.classList.remove('active');
+if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+});
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+a.addEventListener('click', function(e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+});
+window.addEventListener('resize', () => {
+pieChart && pieChart.resize();
+klineChart && klineChart.resize();
+});
+})();
+</script>
+</body>
+</html>

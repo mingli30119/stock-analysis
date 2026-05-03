@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 输出文件
+output/
+cache/
+*.log
+logs/
+
+# 配置文件（包含敏感信息）
+config.local.yaml
+.env
+.env.local
+
+# API Keys（重要！）
+*_api_key.txt
+secrets.yaml
+
+# 知识库（可能包含敏感信息）
+knowledge_base/
+
+# 临时文件
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# 测试文件
+test_output/
+*.test.json
