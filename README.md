@@ -249,7 +249,7 @@ python -m pytest tests/
 
 ## 👨‍💻 作者
 
-[@明立玩AI](https://github.com/mingli30119)
+[@mingli30119](https://github.com/mingli30119) - 明立玩AI
 
 ---
 
@@ -263,8 +263,8 @@ python -m pytest tests/
 
 ## 📮 联系方式
 
-- GitHub: [@明立玩AI](https://github.com/mingli30119)
-- Email: your.email@example.com
+- GitHub: [@mingli30119](https://github.com/mingli30119)
+- Email: longquan830@163.com
 - 公众号: 明立玩AI
 
 ---
