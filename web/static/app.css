@@ -235,7 +235,7 @@ body {
   margin-right: 2px;
 }
 .fetch-legend .dot.pending { background: #4b5563; }
-.fetch-legend .dot.running { background: var(--blue-accent); animation: pulse 1s infinite; }
+.fetch-legend .dot.running { background: var(--accent); animation: pulse 1s infinite; }
 .fetch-legend .dot.ok { background: var(--green-down); }
 .fetch-legend .dot.fail { background: var(--red-up); }
 @keyframes pulse { 50% { opacity: 0.4; } }
@@ -258,7 +258,7 @@ body {
   border-bottom: 1px dashed var(--border);
 }
 .fetch-item:last-child { border-bottom: none; }
-.fetch-item.running { background: rgba(74, 144, 217, 0.12); }
+.fetch-item.running { background: rgba(74, 144, 217, 0.12); border-left: 3px solid var(--accent); }
 .fetch-item.ok { background: rgba(40, 199, 91, 0.06); }
 .fetch-item.fail { background: rgba(245, 86, 86, 0.08); }
 .fetch-item-main { grid-column: 1; display: flex; flex-direction: column; gap: 2px; }
