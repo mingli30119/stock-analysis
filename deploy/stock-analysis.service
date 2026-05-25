@@ -1,0 +1,19 @@
+[Unit]
+Description=Stock Analysis Web (FastAPI + uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/stock-analysis
+Environment=PATH=/opt/stock-analysis/.venv/bin:/usr/local/bin:/usr/bin
+ExecStart=/opt/stock-analysis/.venv/bin/uvicorn web.app:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=5
+
+# 单次报告生成可能较久
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
