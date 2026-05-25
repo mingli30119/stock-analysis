@@ -2,6 +2,8 @@
 
 本文说明如何将 **个股深度分析网页端** 部署到 [腾讯云轻量应用服务器](https://cloud.tencent.com/product/lighthouse)（Lighthouse），通过域名或公网 IP 访问。
 
+> **零基础跟做**：请直接看 [手把手设置教程](./setup-handson.md)。
+
 ---
 
 ## 一、服务器准备
