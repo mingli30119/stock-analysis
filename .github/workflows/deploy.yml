@@ -1,0 +1,53 @@
+# 推送到 main 后，SSH 到腾讯轻量服务器执行 deploy/remote-update.sh
+#
+# 所需 GitHub Secrets（Settings → Secrets and variables → Actions）:
+#   DEPLOY_HOST      服务器公网 IP 或域名
+#   DEPLOY_USER      SSH 用户，如 ubuntu
+#   DEPLOY_SSH_KEY   私钥全文（含 -----BEGIN ...-----）
+# 可选:
+#   DEPLOY_PORT      SSH 端口，默认 22
+#   DEPLOY_PATH      项目目录，默认 /opt/stock-analysis
+
+name: Deploy to Lighthouse
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-lighthouse
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check required secrets
+        run: |
+          test -n "${{ secrets.DEPLOY_HOST }}" || (echo "缺少 DEPLOY_HOST" && exit 1)
+          test -n "${{ secrets.DEPLOY_USER }}" || (echo "缺少 DEPLOY_USER" && exit 1)
+          test -n "${{ secrets.DEPLOY_SSH_KEY }}" || (echo "缺少 DEPLOY_SSH_KEY" && exit 1)
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          command_timeout: 15m
+          script: |
+            set -euo pipefail
+            APP_DIR="${{ secrets.DEPLOY_PATH }}"
+            if [ -z "$APP_DIR" ]; then APP_DIR="/opt/stock-analysis"; fi
+            export APP_DIR
+            export DEPLOY_BRANCH=main
+            cd "$APP_DIR"
+            bash deploy/remote-update.sh
+
+      - name: Smoke test (public URL)
+        if: vars.DEPLOY_URL != ''
+        run: |
+          curl -sf --max-time 30 "${{ vars.DEPLOY_URL }}/health"

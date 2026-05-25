@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 打开 http://localhost:8000 ，输入代码（如 `600519`）即可。首次生成约 2–5 分钟；1 小时内同一股票会使用缓存。
 
-**部署到腾讯轻量服务器**：见 [docs/deploy-tencent-lighthouse.md](docs/deploy-tencent-lighthouse.md)，或执行 `sudo bash deploy/install.sh`。
+**部署到腾讯轻量服务器**：见 [docs/deploy-tencent-lighthouse.md](docs/deploy-tencent-lighthouse.md)。首次 `sudo bash deploy/install.sh`，之后推送到 `main` 可由 **GitHub Actions** 自动部署（配置 `DEPLOY_HOST` 等 Secrets）。
 
 | 路径 | 说明 |
 |------|------|

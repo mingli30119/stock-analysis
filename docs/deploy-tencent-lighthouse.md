@@ -59,6 +59,65 @@ sudo bash deploy/install.sh
 
 ---
 
+## 二点五、GitHub Actions 自动部署（推荐长期维护）
+
+**首次**仍需在服务器执行上一节「一键安装」。之后每次合并到 `main`，Actions 会自动 SSH 更新代码并重启服务。
+
+### 1. 服务器：配置免密 sudo（部署用户）
+
+以 `ubuntu` 为例：
+
+```bash
+sudo tee /etc/sudoers.d/stock-analysis-deploy <<'EOF'
+ubuntu ALL=(ALL) NOPASSWD: /bin/systemctl restart stock-analysis, /bin/systemctl reload stock-analysis, /bin/systemctl daemon-reload, /bin/systemctl enable stock-analysis, /usr/sbin/nginx, /bin/cp
+EOF
+sudo chmod 440 /etc/sudoers.d/stock-analysis-deploy
+```
+
+### 2. 本机：生成部署专用 SSH 密钥
+
+```bash
+ssh-keygen -t ed25519 -C "github-actions-deploy" -f ~/.ssh/lighthouse_deploy -N ""
+```
+
+把 **公钥** 写入服务器：
+
+```bash
+ssh-copy-id -i ~/.ssh/lighthouse_deploy.pub ubuntu@你的公网IP
+```
+
+### 3. GitHub 仓库配置 Secrets
+
+路径：**仓库 → Settings → Secrets and variables → Actions → New repository secret**
+
+| Secret 名称 | 内容 |
+|-------------|------|
+| `DEPLOY_HOST` | 公网 IP 或域名 |
+| `DEPLOY_USER` | `ubuntu`（与服务器登录用户一致） |
+| `DEPLOY_SSH_KEY` | `~/.ssh/lighthouse_deploy` **私钥** 全文 |
+| `DEPLOY_PORT` | （可选）默认 22 |
+| `DEPLOY_PATH` | （可选）默认 `/opt/stock-analysis` |
+
+可选 **Variables**（非敏感）：
+
+| Variable | 说明 |
+|----------|------|
+| `DEPLOY_URL` | 如 `http://你的公网IP`，用于部署后 curl `/health` |
+
+### 4. 触发方式
+
+- 推送到 **`main`** 分支自动部署（见 `.github/workflows/deploy.yml`）
+- 或 **Actions → Deploy to Lighthouse → Run workflow** 手动触发
+
+### 5. 流程说明
+
+```
+git push main → GitHub Actions → SSH 到轻量服务器 → deploy/remote-update.sh
+  → git pull → pip install → reload nginx → restart stock-analysis → /health 检查
+```
+
+---
+
 ## 三、手动部署流程
 
 ### 步骤 1：系统依赖
