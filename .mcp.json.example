@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "zhipu": {
+      "command": "npx",
+      "args": ["-y", "@zhipu-ai/mcp-server"],
+      "env": {
+        "ZHIPU_API_KEY": "your-zhipu-api-key-here"
+      }
+    },
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "@tavily/mcp-server"],
+      "env": {
+        "TAVILY_API_KEY": "your-tavily-api-key-here"
+      }
+    }
+  }
+}
